@@ -1,4 +1,6 @@
-const mongoose = require('mongoose')
+// server.use(express.json());
+// ]const mongoose = require('mongoose')
+
 
 
 mongoose.connect('mongodb://localhost:27017/books', { useNewUrlParser: true, useUnifiedTopology: true });
@@ -43,19 +45,18 @@ function seedBooksCollection() {
         books: [
             {
                 name: 'gone with the wind',
-                dicription: 'classic',
+                discription: 'classic',
                 imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbFbscfoKvmc9ZTSn-RWO4VtoQReYx1cy4Og&usqp=CAU'
             },
             {
                 name: 'the alchemist',
-                dicription: 'novel',
+                discription: 'novel',
                 imageUrl: 'https://kbimages1-a.akamaihd.net/32ad8373-9cc5-4c4f-aa82-8155edbc7029/1200/1200/False/the-alchemist-a-graphic-novel.jpg',
             },
             {
                 name: 'men are from mars women are from venus',
-                dicription: 'Classic Guide',
+                discription: 'Classic Guide',
                 imageUrl: 'https://m.media-amazon.com/images/I/51evEGvOpRL.jpg',
-
             }
         ]
     })
@@ -66,21 +67,41 @@ function seedBooksCollection() {
 
 // seedBooksCollection();
 
-
-
 function getBooksHandler(req, res) {
 
     let userEmail = req.query.email;
 
     userModel.find({ email: userEmail }, function (err, userModel) {
         if (err) {
-           return console.log('No data');
+            return console.log('No data');
         } else {
             res.send(userModel[0].books);
         }
     })
 }
 
+function addBooksHandler(req, res) {
 
+    // let userEmail = req.query.email;
+    const { bookName, bookDiscription, bookImageUrl, userEmail } = req.body;
 
-module.exports = getBooksHandler;
+    userModel.find({ email: userEmail }, function (err, userModel) {
+        if (err) {
+            return console.log('No data');
+        } else {
+
+            userModel[0].books.push({
+                name: bookName,
+                discription: bookDiscription,
+                imageUrl: bookImageUrl,
+            })
+            userModel[0].save();
+
+            res.send(userModel[0].books)
+        }
+    })
+}
+
+// module.exports = getBooksHandler;
+// module.exports = addBooksHandler;
+

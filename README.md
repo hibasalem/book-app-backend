@@ -36,12 +36,25 @@ Finish time: 5:00 pm
 Actual time needed to complete: 2:30 hours
 
 - - - 
-Name of feature: database
+Name of feature: add/delete item 
 
 Estimate of time needed to complete: 4 hours
 
 Start time: 2:00 pm
 
-Finish time: 7:00 pm 
+Finish time: 10:00 pm 
 
-Actual time needed to complete: 5 hours
+Actual time needed to complete: 8 hours
+
+- - - 
+
+Name of feature: update item 
+
+Estimate of time needed to complete: 4 hours
+
+Start time: 3:00 pm
+
+Finish time:
+
+Actual time needed to complete: 
+

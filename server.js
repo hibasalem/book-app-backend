@@ -21,6 +21,8 @@ function homeRouteHandler(req, res) {
 server.get('/books', getBooksHandler);
 server.post('/addBooks', addBooksHandler);
 server.delete('/deleteBook/:index', deleteBooksHandler);
+server.put('/updateBooks/:index', updateBooksHandler);
+
 
 
 mongoose.connect('mongodb://localhost:27017/books', { useNewUrlParser: true, useUnifiedTopology: true });
@@ -115,7 +117,6 @@ function addBooksHandler(req, res) {
                 imageUrl: bookImageUrl,
             })
             userModel[0].save();
-
             res.send(userModel[0].books)
         }
     })
@@ -125,12 +126,12 @@ function deleteBooksHandler(req, res) {
 
     console.log("test delete");
     let email = req.query.email;
-    let index = req.params.index ;
+    let index = req.params.index;
 
-    console.log(email , index);
+    console.log(email, index);
 
-    userModel.find({email:email}, (error, userModel)=>{
-        const newBookArr = userModel[0].books.filter((book,idx)=>{
+    userModel.find({ email: email }, (error, userModel) => {
+        const newBookArr = userModel[0].books.filter((book, idx) => {
             if (idx != index) {
                 return book;
             }
@@ -139,6 +140,32 @@ function deleteBooksHandler(req, res) {
         userModel[0].save();
         res.send(userModel[0].books);
     })
+}
+
+function updateBooksHandler(req, res) {
+    console.log("test update",req);
+    let index = req.params.index;
+    const { email, name, discription, imageUrl } = req.body;
+
+    console.log("value", email, name, discription, imageUrl ,index);
+
+
+    userModel.find({ email: email }, function (err, userModel) {
+        console.log("userModel",userModel);
+        if (err) {
+            return console.log('No data');
+        } else {
+            userModel[0].books.splice(index, 1, {
+                name: name,
+                discription: discription,
+                imageUrl: imageUrl,
+            })
+
+            userModel[0].save();
+            res.send(userModel[0].books);
+        }
+    })
+
 }
 
 server.get('*', errorsHandler);

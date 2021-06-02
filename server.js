@@ -85,7 +85,7 @@ function seedBooksCollection() {
     sokiyna.save();
 }
 
-// seedBooksCollection();
+seedBooksCollection();
 
 function getBooksHandler(req, res) {
 

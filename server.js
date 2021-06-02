@@ -15,6 +15,9 @@ server.use(express.json());
 
 
 server.get('/', homeRouteHandler);
+
+// server.get('/', homeRouteHandler);
+
 function homeRouteHandler(req, res) {
     res.send('home route')
 }

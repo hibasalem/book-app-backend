@@ -3,16 +3,18 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const server = express();
 server.use(cors());
-const PORT = 3001;
-
-const mongoose = require('mongoose')
 server.use(express.json());
+const PORT = process.env.PORT;
+
+
 server.get('/', homeRouteHandler);
 function homeRouteHandler(req, res) {
     res.send('home route')
 }
+
 server.get('/books', getBooksHandler);
 server.post('/addBooks', addBooksHandler);
 server.delete('/deleteBook/:index', deleteBooksHandler);

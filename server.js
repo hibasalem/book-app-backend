@@ -139,7 +139,6 @@ function deleteBooksHandler(req, res) {
         res.send(userModel[0].books);
     })
 }
-
 function updateBooksHandler(req, res) {
     console.log("test update",req);
     let index = req.params.index;

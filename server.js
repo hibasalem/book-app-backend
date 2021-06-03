@@ -3,8 +3,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-server.use(cors());
 const server = express();
+server.use(cors());
 const PORT = 3001;
 
 const mongoose = require('mongoose')
